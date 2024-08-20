@@ -1,0 +1,95 @@
+INDEX.HTML:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Techy Software Project Manager</title>
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/styless.css') }}">
+</head>
+<body>
+ <header>
+ <h1>Techy Software Project Manager</h1>
+ </header>
+ <main>
+ <h2>Tasks</h2>
+ <form id="task-form">
+ <input type="text" id="task-input" placeholder="Enter a new task" required>
+ <button type="submit">Add Task</button>
+ </form>
+ <ul id="task-list"></ul>
+ </main>
+ <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
+STYLESS.CSS
+
+body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+header {
+ background-color: #333;
+ color: #fff;
+ padding: 10px;
+ text-align: center;
+}
+main {
+ padding: 20px;
+ text-align: center;
+}
+#task-form {
+ margin-bottom: 20px;
+}
+#task-input {
+ padding: 10px;
+font-size: 16px;
+ width: 300px;
+}
+button {
+ padding: 10px;
+ font-size: 16px;
+}
+ul {
+ list-style-type: none;
+ padding: 0;
+}
+li {
+ margin: 10px 0;
+ font-size: 18px;
+}
+button.delete {
+ background-color: red;
+ color: white;
+ border: none;
+ padding: 5px 10px;
+ cursor: pointer;
+}
+
+SCRIPT.JS:
+
+document.addEventListener('DOMContentLoaded', () => {
+ const taskForm = document.getElementById('task-form');
+ const taskInput = document.getElementById('task-input');
+ const taskList = document.getElementById('task-list');
+
+taskForm.addEventListener('submit', (event) => {
+ event.preventDefault();
+ const taskText = taskInput.value;
+ addTask(taskText);
+ taskInput.value = '';
+ });
+ function addTask(taskText) {
+ const li = document.createElement('li');
+ li.textContent = taskText;
+ const deleteButton = document.createElement('button');
+ deleteButton.textContent = 'Delete';
+ deleteButton.className = 'delete';
+ deleteButton.onclick = () => li.remove();
+ li.appendChild(deleteButton);
+ taskList.appendChild(li);
+ }
+});
